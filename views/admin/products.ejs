@@ -1,0 +1,33 @@
+<div class="">
+    <h1 class="h2 border-bottom"> <%- title %> </h1>
+    <div class="text-right pb-2">
+        <a href="/admin/products/create" class="btn btn-success">Create Product</a>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Image</th>
+            <th>Action</th>
+        </tr>
+        <% for(var i = 0; i < products.length; i++ ) { %>
+            <tr>
+                <td><%= products[i].id %></td>
+                <td><%= products[i].title %></td>
+                <td><%= products[i].price %></td>
+                <td><%= products[i].Category.name %></td>
+                <td>
+                    <img src="/uploads/products/<%= products[i].thumbnail %>" alt="" width="200px">
+                </td>
+                <td>
+                <a href="#" class="btn btn-warning">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        <% } %>
+        
+    </table>
+
+</div>
