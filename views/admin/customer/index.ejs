@@ -1,0 +1,32 @@
+<div class="">
+    <h1 class="h2 border-bottom"> <%- title %> </h1>
+    <div class="text-right pb-2">
+        <a href="/admin/customers/create" class="btn btn-success">Create New Customer</a>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Township</th>
+            <th>Action</th>
+        </tr>
+        <% for(var i = 0; i < customers.length; i++ ) { %>
+        <tr>
+            <td><%= customers[i].id %></td>
+            <td><%= customers[i].name %></td>
+            <td><%= customers[i].phone %></td>
+            <td><%= customers[i].email %></td>
+            <td><%= customers[i].address %></td>
+            <td><%= customers[i].Township.name %></td>
+            <td>
+                <a href="/admin/customers/<%- customers[i].id -%>" class="btn btn-warning">Edit</a>
+                <a href="/admin/customers/<%- customers[i].id -%>/delete" class="btn btn-danger" onclick="return confirm('Are you sure to delete.')">Delete</a>
+            </td>
+        </tr>
+        <% } %>        
+    </table>
+
+</div>

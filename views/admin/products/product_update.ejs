@@ -1,0 +1,51 @@
+<div class="">
+    <h1 class="h2 border-bottom"> <%- title %> </h1>
+    
+    <form action="/admin/products/<%- product.id %>/update" method="POST"  enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="title" placeholder="Title" class="form-control" value="<%- product.title %>">
+        </div>
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="number" name="price" placeholder="Price" class="form-control" value="<%- product.price %>">
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="photo">Photo</label>
+                    <input type="file" name="thumbnail" placeholder="Photo" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <img src="../../uploads/products/<%- product.thumbnail %>" alt="" width="50px">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="category">Category </label>
+            <select name="category_id" id="" class="form-control">
+                <option value="">Select Category</option>
+               <% for(var i = 0; i < categories.length; i++ ) { %>
+                <% var select=''; if( categories[i].id == product.category_id ){ select='selected'; } %>
+                <option value="<%= categories[i].id %>" <%= select %> ><%= categories[i].name %></option>
+                <% } %>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea name="description" id="" class="form-control"><%= product.description %></textarea>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6 text-left">
+                    <a href="/admin/products" class="btn btn-warning">Back</a>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button class="btn btn-success">Update Product</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>

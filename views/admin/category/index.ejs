@@ -1,0 +1,24 @@
+<div class="">
+    <h1 class="h2 border-bottom"> <%- title %> </h1>
+    <div class="text-right pb-2">
+        <a href="/admin/categories/create" class="btn btn-success">Create New Category</a>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+        <% for(var i = 0; i < categories.length; i++ ) { %>
+        <tr>
+            <td><%= categories[i].id %></td>
+            <td><%= categories[i].name %></td>
+            <td>
+                <a href="/admin/categories/<%- categories[i].id -%>" class="btn btn-warning">Edit</a>
+                <a href="/admin/categories/<%- categories[i].id -%>/delete" class="btn btn-danger" onclick="return confirm('Are you sure to delete.')">Delete</a>
+            </td>
+        </tr>
+        <% } %>        
+    </table>
+
+</div>

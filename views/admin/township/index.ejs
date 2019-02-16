@@ -1,0 +1,24 @@
+<div class="">
+    <h1 class="h2 border-bottom"> <%- title %> </h1>
+    <div class="text-right pb-2">
+        <a href="/admin/townships/create" class="btn btn-success">Create New Township</a>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+        <% for(var i = 0; i < townships.length; i++ ) { %>
+        <tr>
+            <td><%= townships[i].id %></td>
+            <td><%= townships[i].name %></td>
+            <td>
+                <a href="/admin/townships/<%- townships[i].id -%>" class="btn btn-warning">Edit</a>
+                <a href="/admin/townships/<%- townships[i].id -%>/delete" class="btn btn-danger" onclick="return confirm('Are you sure to delete.')">Delete</a>
+            </td>
+        </tr>
+        <% } %>        
+    </table>
+
+</div>

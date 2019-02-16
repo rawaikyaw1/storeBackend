@@ -9,22 +9,22 @@ var Op = Sequelize.Op;
 //   res.send('respond with a resource');
 // });
 
-/* GET categories listing. */
+/* GET townships listing. */
 router.get('/', async function(req, res, next) {     
     
     // var condition = {where:{}, order: [['updatedAt', 'DESC']]};    
     
     // console.log(condition);
-    let categories = await models.Category.findAll();
+    let townships = await models.Township.findAll();
     
-    res.render('admin/category/index', { title: 'Categories', categories:categories });
+    res.render('admin/township/index', { title: 'Townships', townships:townships });
     
   });
 
-   /* GET category create page. */
+   /* GET township create page. */
 router.get('/create', async function(req, res, next) {     
   
-  res.render('admin/category/create', { title: 'Create New Categories' });
+  res.render('admin/township/create', { title: 'Create New Township' });
   
 });
 
@@ -33,19 +33,19 @@ router.post('/create', async function(req, res, next) {
     
   let formData = req.body;
 
-  models.Category.create(formData).then((err, result)=>{
+  models.Township.create(formData).then((err, result)=>{
     
-    return res.redirect('/admin/categories');
+    return res.redirect('/admin/townships');
     
   });
 
 });
 
-/* GET category update page. */
+/* GET township update page. */
 router.get('/:id', async function(req, res, next) {     
   var id = req.params.id;
   
-  let category = await models.Category.findOne(
+  let township = await models.Township.findOne(
    {
      where:{
        id:id
@@ -53,31 +53,31 @@ router.get('/:id', async function(req, res, next) {
    }
  );
    
- res.render('admin/category/update', { title: 'Update Category', category:category });
+ res.render('admin/township/update', { title: 'Update Township', township:township });
  
 });
 
-/* Post category update Data. */
+/* Post township update Data. */
 router.post('/:id/update', async function(req, res, next) {     
   var id = req.params.id;
   var formData = req.body;
 
-  models.Category.update(formData,{where:{id:id}}).then((err, result)=>{
+  models.Township.update(formData,{where:{id:id}}).then((err, result)=>{
     
-    return res.redirect('/admin/categories');
+    return res.redirect('/admin/townships');
     
   });   
  
 });
 
-/* Get category to delete. */
+/* Get township to delete. */
 router.get('/:id/delete', async function(req, res, next) {     
   var id = req.params.id;
   
   //delete data.
-  models.Category.destroy({where:{id:id}}).then((err, result)=>{
+  models.Township.destroy({where:{id:id}}).then((err, result)=>{
     
-    return res.redirect('/admin/categories');
+    return res.redirect('/admin/townships');
     
   });
  

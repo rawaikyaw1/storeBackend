@@ -1,0 +1,61 @@
+<div class="">
+    <h1 class="h2 border-bottom"> <%- title %> </h1>
+    <div class="text-right pb-2">
+        <a href="/admin/products/create" class="btn btn-success">Create Product</a>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Image</th>
+            <th>Action</th>
+        </tr>
+        <% for(var i = 0; i < products.length; i++ ) { %>
+        <tr>
+            <td><%= products[i].id %></td>
+            <td><%= products[i].title %></td>
+            <td><%= products[i].price %></td>
+            <td><%= products[i].category_id %></td>
+            <td>
+                <img src="/uploads/products/<%= products[i].thumbnail %>" alt="" width="60px">
+            </td>
+            <td>
+                <a href="/admin/products/<%- products[i].id -%>" class="btn btn-warning">Edit</a>
+                <a href="/admin/products/<%- products[i].id -%>/delete" class="btn btn-danger" onclick="return confirm('Are you sure to delete.')">Delete</a>
+            </td>
+        </tr>
+        <% } %>        
+    </table>
+
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="Page navication justify-content-center">
+                <ul class="pagination">
+                    <% if(pagination.hasPrevPage){ %>
+                        <li class="page-item">
+                            <a href="/admin/products?page=<%= pagination.hasPrevPage %>" class="page-link">
+                                Previous
+                            </a>
+                        </li>
+                    <% } %>
+                    <% for(var i = 1; i <= pagination.totalPages; i++){ %>
+                        <li class="page-item">
+                            <a href="/admin/products?page=<%= i %>" class="page-link"><%= i %></a>
+                        </li>
+                    <% } %>
+                    <% if(pagination.hasNextPage){ %>
+                        <li class="page-item">
+                            <a href="/admin/products?page=<%= pagination.hasNextPage %>" class="page-link">
+                                Next Page
+                            </a>
+                        </li>
+                    <% } %>
+                </ul>
+
+            </nav>
+        </div>
+    </div>
+
+</div>

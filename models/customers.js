@@ -14,5 +14,12 @@ module.exports = (sequalize, DataTypes) => {
         timestamps: true,
     });
 
+    Customer.associate = function (models){
+        models.Customer.belongsTo(models.Township, {
+            onDelete: "CASCADE",
+            foreignKey : "township_id",
+        });
+    };
+
     return Customer;
 };

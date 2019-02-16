@@ -22,7 +22,12 @@
         
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a class="nav-link text-white" href="#">Sign out</a>
+                
+                <% if(user) { %>
+                    <a class="nav-link text-white" href="/user/logout">Logout</a>
+                <% }else{ %>
+                    <a class="nav-link text-white" href="/user/login">Login</a>
+                <% } %>
             </li>
         </ul>
     </nav>
@@ -39,7 +44,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/admin/categories">
                                 <span data-feather="file"></span>
                                 Categories
                             </a>
@@ -51,27 +56,21 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/admin/townships">
+                                <span data-feather="users"></span>
+                                Townships
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/customers">
                                 <span data-feather="users"></span>
                                 Customers
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/user/login">
                                 <span data-feather="users"></span>
-                                Orders
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="bar-chart-2"></span>
-                                Reports
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="layers"></span>
-                                Integrations
+                                Users
                             </a>
                         </li>
                     </ul>

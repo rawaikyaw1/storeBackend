@@ -12,11 +12,16 @@ var Op = Sequelize.Op;
 /* GET products listing. */
 router.get('/', async function(req, res, next) {     
     
-    // var condition = {where:{}, order: [['updatedAt', 'DESC']]};    
+  var q = req.query.category ? req.query.category : null;
+  // console.log(q);
+    var condition = {where:{}, order: [['updatedAt', 'DESC']]}; 
+    
+    if(q){
+      condition.where.category_id = {[Op.eq]: q };
+    }
     
     // console.log(condition);
-    let products = await models.Product.findAndCountAll();
-    
+    let products = await models.Product.findAll(condition);
     res.json({
       success: true,
       message: 'Api Products retrived successfully!',
