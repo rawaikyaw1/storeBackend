@@ -6,7 +6,7 @@ module.exports = (sequalize, DataTypes) => {
         product_id:DataTypes.INTEGER,
         qty:DataTypes.INTEGER,
         price:DataTypes.FLOAT,
-        subtotal:DataTypes.FLOAT,
+        sub_total:DataTypes.FLOAT,
         status:DataTypes.INTEGER
     },
     {
