@@ -21,5 +21,12 @@ module.exports = (sequalize, DataTypes) => {
         });
     };
 
+    Product.associate = function (models){
+        models.Product.hasMany(models.OrderItem, {
+            onDelete: "CASCADE",
+            foreignKey : "product_id",
+        });
+    };
+
     return Product;
 };

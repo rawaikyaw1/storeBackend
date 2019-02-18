@@ -12,6 +12,13 @@ module.exports = (sequalize, DataTypes) => {
         tableName : 'orders',
         timestamps: true,
     });
+    
+    Order.associate = function(models){
+        models.Order.belongsTo(models.User,{
+            onDelete: "CASCADE",
+            foreignKey:"customer_id",
+        });
+    }
 
     return Order;
 };

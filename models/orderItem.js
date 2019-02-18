@@ -14,5 +14,12 @@ module.exports = (sequalize, DataTypes) => {
         timestamps: true,
     });
 
+    OrderItem.associate = function(models){
+        models.OrderItem.belongsTo(models.Product,{
+            onDelete: "CASCADE",
+            foreignKey:"product_id",
+        });
+    }
+
     return OrderItem;
 };

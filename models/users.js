@@ -13,6 +13,13 @@ module.exports = (sequalize, DataTypes) => {
         tableName : 'users',
         timestamps: true,
     });
+
+    User.associate = function (models){
+        models.User.hasMany(models.Order, {
+            onDelete: "CASCADE",
+            foreignKey : "customer_id",
+        });
+    };
     
     return User;
 };
