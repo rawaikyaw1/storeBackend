@@ -6,6 +6,7 @@ var Op = Sequelize.Op;
 var multer  = require('multer');
 var fileUpload = multer({ dest: 'public/uploads/products' });
 const PER_PAGE = 5;
+var auth = require('connect-ensure-login').ensureLoggedIn;
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -13,7 +14,7 @@ const PER_PAGE = 5;
 // });
 
 /* GET products listing. */
-router.get('/', async function(req, res, next) { 
+router.get('/', auth('/user/login'), async function(req, res, next) { 
   
     var condition = {where:{}, order:[['createdAt', 'DESC']]};
   
@@ -40,7 +41,7 @@ router.get('/', async function(req, res, next) {
   });
   
   /* GET products create page. */
-router.get('/create', async function(req, res, next) {     
+router.get('/create', auth('/user/login'), async function(req, res, next) {     
     
   // var condition = {where:{}, order: [['updatedAt', 'DESC']]};    
   let categories = await models.Category.findAll();
@@ -50,7 +51,7 @@ router.get('/create', async function(req, res, next) {
 });
 
 /* Post products to save. */
-router.post('/create', fileUpload.single('thumbnail'), async function(req, res, next) { 
+router.post('/create', auth('/user/login'), fileUpload.single('thumbnail'), async function(req, res, next) { 
     
   let formData = req.body;
 
@@ -68,7 +69,7 @@ router.post('/create', fileUpload.single('thumbnail'), async function(req, res, 
 });
 
  /* GET products update page. */
- router.get('/:id', async function(req, res, next) {     
+ router.get('/:id', auth('/user/login'), async function(req, res, next) {     
    var id = req.params.id;
    
    let product = await models.Product.findAll(
@@ -89,7 +90,7 @@ router.post('/create', fileUpload.single('thumbnail'), async function(req, res, 
 });
 
  /* POST products update page. */
- router.post('/:id/update',fileUpload.single('thumbnail'), async function(req, res, next) {     
+ router.post('/:id/update',fileUpload.single('thumbnail'), auth('/user/login'), async function(req, res, next) {     
   var id = req.params.id;
   var formData = req.body;
   
@@ -108,7 +109,7 @@ router.post('/create', fileUpload.single('thumbnail'), async function(req, res, 
 });
 
 /* Get products to delete. */
-router.get('/:id/delete', async function(req, res, next) {     
+router.get('/:id/delete', auth('/user/login'), async function(req, res, next) {     
   var id = req.params.id;
   
   //delete data.

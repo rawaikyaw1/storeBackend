@@ -3,6 +3,7 @@ var router = express.Router();
 var models = require('../../models');
 var Sequelize = require('sequelize');
 var Op = Sequelize.Op;
+var auth = require('connect-ensure-login').ensureLoggedIn;
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -10,7 +11,7 @@ var Op = Sequelize.Op;
 // });
 
 /* GET orders listing. */
-router.get('/', async function(req, res, next) {     
+router.get('/', auth('/user/login'), async function(req, res, next) {     
     
     // var condition = {where:{}, order: [['updatedAt', 'DESC']]};    
     

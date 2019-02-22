@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var models = require('../../models');
 var Sequelize = require('sequelize');
+var auth = require('connect-ensure-login').ensureLoggedIn;
 var Op = Sequelize.Op;
 
 /* GET users listing. */
@@ -10,7 +11,7 @@ var Op = Sequelize.Op;
 // });
 
 /* GET customers listing. */
-router.get('/', async function(req, res, next) {     
+router.get('/', auth('/user/login'), async function(req, res, next) {     
     
     // var condition = {where:{}, order: [['updatedAt', 'DESC']]};    
     
@@ -28,7 +29,7 @@ router.get('/', async function(req, res, next) {
   });
 
     /* GET customers create page. */
-router.get('/create', async function(req, res, next) {     
+router.get('/create', auth('/user/login'), async function(req, res, next) {     
     
   // var condition = {where:{}, order: [['updatedAt', 'DESC']]};    
   let townships = await models.Township.findAll();
@@ -38,7 +39,7 @@ router.get('/create', async function(req, res, next) {
 });
 
 /* Post customers to save. */
-router.post('/create',  async function(req, res, next) { 
+router.post('/create', auth('/user/login'), async function(req, res, next) { 
     
   let formData = req.body;
 
@@ -51,7 +52,7 @@ router.post('/create',  async function(req, res, next) {
 });
 
    /* GET customers update page. */
- router.get('/:id', async function(req, res, next) {     
+ router.get('/:id', auth('/user/login'), async function(req, res, next) {     
   var id = req.params.id;
   
   let customer = await models.Customer.findOne(
@@ -72,7 +73,7 @@ router.post('/create',  async function(req, res, next) {
 });
 
  /* POST customers update page. */
- router.post('/:id/update', async function(req, res, next) {     
+ router.post('/:id/update', auth('/user/login'), async function(req, res, next) {     
   var id = req.params.id;
   var formData = req.body;  
  
@@ -85,7 +86,7 @@ router.post('/create',  async function(req, res, next) {
 });
 
 /* Get township to delete. */
-router.get('/:id/delete', async function(req, res, next) {     
+router.get('/:id/delete', auth('/user/login'), async function(req, res, next) {     
   var id = req.params.id;
   
   //delete data.

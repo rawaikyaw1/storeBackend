@@ -160,6 +160,7 @@ app.use('/user',userLoginRouter);
 passport.use(new LocalStrategy({
   usernameField : 'email',
   passwordField : 'password'
+  
 },
 function(email,password,done){
   console.log("checking login...");
@@ -186,7 +187,7 @@ passport.serializeUser(function(user,done){
 
 passport.deserializeUser(function(id,done){
   console.log("user info accessed");
-  models.Admin.findOne({where:{id : id}}).then(function(result){
+  models.User.findOne({where:{id : id}}).then(function(result){
     if(!result) { return done(null,false);}
 
     return done(null,result);

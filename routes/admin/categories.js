@@ -3,6 +3,8 @@ var router = express.Router();
 var models = require('../../models');
 var Sequelize = require('sequelize');
 var Op = Sequelize.Op;
+var auth = require('connect-ensure-login').ensureLoggedIn;
+
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -10,7 +12,7 @@ var Op = Sequelize.Op;
 // });
 
 /* GET categories listing. */
-router.get('/', async function(req, res, next) {     
+router.get('/', auth('/user/login'), async function(req, res, next) {     
     
     // var condition = {where:{}, order: [['updatedAt', 'DESC']]};    
     
@@ -22,14 +24,14 @@ router.get('/', async function(req, res, next) {
   });
 
    /* GET category create page. */
-router.get('/create', async function(req, res, next) {     
+router.get('/create', auth('/user/login'), async function(req, res, next) {     
   
   res.render('admin/category/create', { title: 'Create New Categories' });
   
 });
 
 /* Post category to save. */
-router.post('/create', async function(req, res, next) { 
+router.post('/create', auth('/user/login'), async function(req, res, next) { 
     
   let formData = req.body;
 
@@ -42,7 +44,7 @@ router.post('/create', async function(req, res, next) {
 });
 
 /* GET category update page. */
-router.get('/:id', async function(req, res, next) {     
+router.get('/:id', auth('/user/login'), async function(req, res, next) {     
   var id = req.params.id;
   
   let category = await models.Category.findOne(
@@ -58,7 +60,7 @@ router.get('/:id', async function(req, res, next) {
 });
 
 /* Post category update Data. */
-router.post('/:id/update', async function(req, res, next) {     
+router.post('/:id/update', auth('/user/login'), async function(req, res, next) {     
   var id = req.params.id;
   var formData = req.body;
 
@@ -71,7 +73,7 @@ router.post('/:id/update', async function(req, res, next) {
 });
 
 /* Get category to delete. */
-router.get('/:id/delete', async function(req, res, next) {     
+router.get('/:id/delete', auth('/user/login'), async function(req, res, next) {     
   var id = req.params.id;
   
   //delete data.
