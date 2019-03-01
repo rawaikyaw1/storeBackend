@@ -1,0 +1,26 @@
+<div class="">
+    <h1 class="h2 border-bottom"> <%- title %> </h1>
+    <div class="text-right pb-2">
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Customer Name</th>
+            <th>Total Amount</th>
+            <th>Payment Method</th>
+            <th>Action</th>
+        </tr>
+        <% for(var i = 0; i < orders.length; i++ ) { %>
+        <tr>
+            <td><%= orders[i].id %></td>
+            <td><%= orders[i].User.name %></td>
+            <td><%= orders[i].total_amount %></td>
+            <td><%= methods[orders[i].payment_method] %></td>
+            <td>
+                <a href="/admin/orders/<%- orders[i].id -%>" class="btn btn-info">Detail</a>
+            </td>
+        </tr>
+        <% } %>        
+    </table>
+
+</div>

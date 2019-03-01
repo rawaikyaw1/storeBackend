@@ -29,6 +29,7 @@
     "passport-custom": "^1.0.5",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "pdfkit": "^0.9.0",
     "sequelize": "^4.42.0"
   }
 }

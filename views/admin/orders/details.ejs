@@ -1,0 +1,46 @@
+<div class="">
+    <h1 class="h2 border-bottom">#<%- order.id+" "+title %> </h1>
+    <div class="text-right pb-2">
+        Customer Name : <%- order.User.name -%>
+    </div>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Product Name</th>
+                <th>Unit Price</th>
+                <th>Quantity</th>
+                <th>Sub Total</th>
+            </tr>
+        <tbody>
+        </thead>
+        <tbody>
+        <% var total=0;  order_items.map((data)=>{ total+=data.sub_total;%>
+            <tr>
+                <td> <%- data.id %> </td>
+                <td> <%- data.Product.title %> </td>
+                <td> <%- data.Product.price %> </td>
+                <td> <%- data.qty %> </td>
+                <td> <%- data.sub_total %> </td>
+            </tr>
+        
+        <% }); %>
+            <tr>
+                <td class="text-right" colspan="4">Total</td>
+                <td colspan="1"><%- total -%></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            
+            <tr>
+                <td colspan="4" class="pl-0 pr-0">
+                    <a href="/admin/orders" class="btn btn-sm btn-info">Back</a>
+                </td>
+                <td colspan="1" class="text-right pl-0 pr-0">
+                    <a href="/admin/orders/pdf/<%- order.id -%>" class="btn btn-success">Generate PDF</a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+</div>

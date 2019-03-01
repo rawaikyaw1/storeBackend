@@ -16,33 +16,33 @@ var auth = require('connect-ensure-login').ensureLoggedIn;
 /* GET products listing. */
 router.get('/', auth('/user/login'), async function(req, res, next) { 
   
-    var condition = {where:{}, order:[['createdAt', 'DESC']]};
+  var condition = {where:{}, order:[['createdAt', 'DESC']]};
   
-    let currentPage = req.query.page ? parseInt(req.query.page) : 1;
-    condition.limit = PER_PAGE;
-    condition.offset = (currentPage - 1) * PER_PAGE;
-    console.log(condition);
-    let products = await models.Product.findAndCountAll(condition);
-
-    let pagination = {
-      totalRecotds : products.count,
-      currentPage : currentPage
-    }
-
-    pagination.totalPages = Math.ceil(pagination.totalRecotds/PER_PAGE); //get decimal value to full number.
-    pagination.hasNextPage = (pagination.totalPages > 1 && pagination.currentPage < pagination.totalPages) ? (pagination.currentPage + 1) : false;
-    pagination.hasPrevPage = (pagination.totalPages > 1 && pagination.currentPage > 1) ? (pagination.currentPage - 1) : false;
-
-    // console.log(pagination);
-
-    // console.log(products);
-    res.render('admin/products/products', { title: 'Products', products:products.rows, pagination:pagination });
-    
-  });
+  let currentPage = req.query.page ? parseInt(req.query.page) : 1;
+  condition.limit = PER_PAGE;
+  condition.offset = (currentPage - 1) * PER_PAGE;
+  console.log(condition);
+  let products = await models.Product.findAndCountAll(condition);
   
-  /* GET products create page. */
+  let pagination = {
+    totalRecotds : products.count,
+    currentPage : currentPage
+  }
+  
+  pagination.totalPages = Math.ceil(pagination.totalRecotds/PER_PAGE); //get decimal value to full number.
+  pagination.hasNextPage = (pagination.totalPages > 1 && pagination.currentPage < pagination.totalPages) ? (pagination.currentPage + 1) : false;
+  pagination.hasPrevPage = (pagination.totalPages > 1 && pagination.currentPage > 1) ? (pagination.currentPage - 1) : false;
+  
+  // console.log(pagination);
+  
+  // console.log(products);
+  res.render('admin/products/products', { title: 'Products', products:products.rows, pagination:pagination });
+  
+});
+
+/* GET products create page. */
 router.get('/create', auth('/user/login'), async function(req, res, next) {     
-    
+  
   // var condition = {where:{}, order: [['updatedAt', 'DESC']]};    
   let categories = await models.Category.findAll();
   // console.log(categories);
@@ -52,15 +52,15 @@ router.get('/create', auth('/user/login'), async function(req, res, next) {
 
 /* Post products to save. */
 router.post('/create', auth('/user/login'), fileUpload.single('thumbnail'), async function(req, res, next) { 
-    
+  
   let formData = req.body;
-
+  
   //save upload file info.
   let photo = req.file;
   if(photo){
     formData.thumbnail = photo.filename;
   }
-
+  
   models.Product.create(formData).then((err, result)=>{
     
     return res.redirect('/admin/products');
@@ -68,11 +68,11 @@ router.post('/create', auth('/user/login'), fileUpload.single('thumbnail'), asyn
   });
 });
 
- /* GET products update page. */
- router.get('/:id', auth('/user/login'), async function(req, res, next) {     
-   var id = req.params.id;
-   
-   let product = await models.Product.findAll(
+/* GET products update page. */
+router.get('/:id', auth('/user/login'), async function(req, res, next) {     
+  var id = req.params.id;
+  
+  let product = await models.Product.findAll(
     {
       where:{
         id:id
@@ -81,47 +81,48 @@ router.post('/create', auth('/user/login'), fileUpload.single('thumbnail'), asyn
         models.Category
       ]
     }
-  );
-
-  let categories = await models.Category.findAll();
+    );
     
-  res.render('admin/products/product_update', { title: 'Update Product', product:product, categories:categories });
-  
-});
-
- /* POST products update page. */
- router.post('/:id/update',fileUpload.single('thumbnail'), auth('/user/login'), async function(req, res, next) {     
-  var id = req.params.id;
-  var formData = req.body;
-  
-  //save upload file info.
-  let photo = req.file;
-  if(photo){
-    formData.thumbnail = photo.filename;
-  }
-
-  models.Product.update(formData,{where:{id:id}}).then((err, result)=>{
+    let categories = await models.Category.findAll();
     
-    return res.redirect('/admin/products');
+    res.render('admin/products/product_update', { title: 'Update Product', product:product, categories:categories });
     
   });
- 
-});
-
-/* Get products to delete. */
-router.get('/:id/delete', auth('/user/login'), async function(req, res, next) {     
-  var id = req.params.id;
   
-  //delete data.
-
-  models.Product.destroy({where:{id:id}}).then((err, result)=>{
+  /* POST products update page. */
+  router.post('/:id/update',fileUpload.single('thumbnail'), auth('/user/login'), async function(req, res, next) {     
+    var id = req.params.id;
+    var formData = req.body;
     
-    return res.redirect('/admin/products');
+    //save upload file info.
+    let photo = req.file;
+    if(photo){
+      formData.thumbnail = photo.filename;
+    }
+    
+    models.Product.update(formData,{where:{id:id}}).then((err, result)=>{
+      
+      return res.redirect('/admin/products');
+      
+    });
     
   });
- 
-});
-
-
-
-module.exports = router;
+  
+  /* Get products to delete. */
+  router.get('/:id/delete', auth('/user/login'), async function(req, res, next) {     
+    var id = req.params.id;
+    
+    //delete data.
+    
+    models.Product.destroy({where:{id:id}}).then((err, result)=>{
+      
+      return res.redirect('/admin/products');
+      
+    });
+    
+  });
+  
+  
+  
+  module.exports = router;
+  
